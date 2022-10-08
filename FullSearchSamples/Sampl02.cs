@@ -39,28 +39,30 @@ namespace FullSearchSamples
             //new SimpleSearcherV2().SearchV1("Monday", documentsSet);//Выводим все строки где содержится значение поиска
             //new SimpleSearcherV2().SearchV2("Monday", documentsSet);
 
-            //Для измерения производительности
+            //Пуск измерения производительности
             BenchmarkSwitcher.FromAssembly(typeof(Sampl02).Assembly).Run(args, new BenchmarkDotNet.Configs.DebugInProcessConfig());
-            BenchmarkRunner.Run<SearchBenchmarkV1>();
+            BenchmarkRunner.Run<SearchBenchmarkV1>();//запуск         }
         }
-    }
-    [MemoryDiagnoser]//атрибут - анализ памяти
-    [WarmupCount(1)]//атрибут -прогрев)-первый запуск с кешем и дольше грузиться, и мы не учитываем время пргрева-первый раз в хлостую,а потом выполняем
-    [IterationCount(5)]//атрибут -выполняем 5 раз
-    public class SearchBenchmarkV1
-    {
-        private readonly string[] _documentsSet;
 
-        public SearchBenchmarkV1()
+
+        [MemoryDiagnoser]//атрибут - анализ памяти
+        [WarmupCount(1)]//атрибут -прогрев)-первый запуск с кешем и дольше грузиться, и мы не учитываем время пргрева-первый раз в хлостую,а потом выполняем
+        [IterationCount(5)]//атрибут -выполняем 5 раз
+        public class SearchBenchmarkV1
         {
-            _documentsSet = DocumentExtractor.DocumentsSet().Take(10000).ToArray();//В конструкторе не учитываются время проиизводительности
-        }
+            private readonly string[] _documentsSet;
 
-        [Benchmark]//атрибут
-        public void SimpleSearch()
-        {
-            new SimpleSearcherV2().SearchV3("Monday", _documentsSet).ToArray();//Такой же,как и второй,но без вывода в консолю
-        }
+            public SearchBenchmarkV1()
+            {
+                _documentsSet = DocumentExtractor.DocumentsSet().Take(10000).ToArray();//В конструкторе не учитываются время проиизводительности
+            }
 
+            [Benchmark]//атрибут
+            public void SimpleSearch()
+            {
+                new SimpleSearcherV2().SearchV3("Monday", _documentsSet).ToArray();//Такой же,как и второй,но без вывода в консолю
+            }
+
+        }
     }
 }
