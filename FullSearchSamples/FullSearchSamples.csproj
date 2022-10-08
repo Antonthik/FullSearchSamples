@@ -5,7 +5,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <StartupObject>FullSearchSamples.Sampl02</StartupObject>
+    <StartupObject>FullSearchSamples.Sampl03</StartupObject>
   </PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="BenchmarkDotNet" Version="0.13.2" />
